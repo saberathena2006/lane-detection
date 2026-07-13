@@ -61,7 +61,7 @@ YOLOPv2-ADAS/
 - Python 3.8+ 
 - CUDA Toolkit 11.8 (or compatible with your GPU)
 
-### 2. Install PyTorch with CUDA (Crucial for 60+ FPS)
+### 2. Install PyTorch with CUDA (Crucial for 20+ FPS)
 If you install standard PyTorch, it will default to CPU, giving you only 2 FPS. You **must** install the CUDA version. Open your terminal and run:
 
 ```bash
@@ -88,7 +88,7 @@ To run the ADAS perception system, use the `demo_adas.py` script.
 python demo_adas.py --source data/road.mp4 --device 0
 ```
 
-### ⚡ High FPS Command (60+ FPS)
+### ⚡ High FPS Command (20+ FPS)
 To achieve maximum real-time performance on an RTX 4050, lower the inference image size. This cuts inference time drastically without hurting lane detection:
 ```bash
 python demo_adas.py --source data/road.mp4 --device 0 --img-size 384
