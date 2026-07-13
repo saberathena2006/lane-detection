@@ -1,0 +1,40 @@
+# Usage: pip install -r requirements.txt
+# Base ----------------------------------------
+matplotlib>=3.2.2
+numpy>=1.18.5,<2.0
+Pillow>=7.1.2
+PyYAML>=5.3.1
+requests>=2.23.0
+scipy>=1.4.1
+# FIX: torch==1.7.0 / torchvision==0.8.0 are pinned to exact wheels that were
+# never published for Python 3.9+ and are unavailable on PyPI for any modern
+# Python/OS/CUDA combination -- `pip install -r requirements.txt` fails outright
+# on any current machine before the project even runs, independent of any code
+# bug. Also, torch.jit.load()'d models are generally forward-compatible with
+# newer torch releases (this is the whole point of TorchScript), so pinning to
+# an ancient exact version is unnecessary and actively harmful. Relaxed to a
+# minimum-version floor within the 2.x series, which supports the
+# torch.meshgrid(..., indexing=...) API used in utils.py and is installable on
+# Python 3.9-3.12 with or without CUDA.
+torch>=2.0.0
+torchvision>=0.15.0
+opencv-python>=4.7.0
+# FIX: bumped opencv-python floor as well -- older 4.1.x builds on some
+# platforms lack certain FFMPEG-backed VideoWriter codecs (mp4v) used in
+# demo.py's video-saving path.
+tqdm>=4.41.0
+protobuf>=3.20.0
+# FIX: removed the upper bound `protobuf<4.21.3`. That pin existed to dodge a
+# specific tensorboard incompatibility at the time this repo was written;
+# modern tensorboard releases work fine with current protobuf, and pinning an
+# old protobuf ceiling frequently creates dependency-resolution conflicts with
+# other installed packages on a fresh environment.
+# Logging -------------------------------------
+tensorboard>=2.4.1
+# Plotting ------------------------------------
+pandas>=1.1.4
+seaborn>=0.11.0
+# Extras --------------------------------------
+ipython  # interactive notebook
+psutil  # system utilization
+thop  # FLOPs computation
